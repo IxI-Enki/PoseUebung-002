@@ -1,4 +1,5 @@
 # PoseUebung-002 -- Linear Data Structures
+> ![image](https://github.com/user-attachments/assets/e4a2b0fb-c813-4a24-b81e-5cb32b37a75e)
 
 
 # - Queue:  <sub><sup> (*passed Unit-Tests:* ***20/20***) </sup></sub>
