@@ -5,7 +5,7 @@
 <!-- ![Screenshot 2024-09-25 002316](https://github.com/user-attachments/assets/93e312ec-7a29-42df-88e9-a4c11fc4c7ff) -->
 
 ---  
-### Stack:  20/20
+# A) Stack:  <sub> passed Unit-Tests: 20/20 </sub>
 > - FIELDS:
 ```c#
   private Element<T>? _head = null;
