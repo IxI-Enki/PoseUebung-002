@@ -4,8 +4,8 @@
 # - Queue:  <sub><sup> (*passed Unit-Tests:* ***20/20***) </sup></sub>
 > FIELDS:
 ```c#
-   private Element<T>? _first = null;
-   private Element<T>? _last = null;
+private Element<T>? _first = null;
+private Element<T>? _last = null;
 ```
 
 > PROPERTIES:
@@ -28,53 +28,54 @@ public int Count
 
 > METHODS:
 ```c#
-  public void Clear()
-  {
-    _first = null;
-    _last = null;
-  }
+public void Clear()
+{
+  _first = null;
+  _last = null;
+}
 ```
 
 ```c#
-  public T Dequeue()
-  {
-    if (_first == null) throw new InvalidOperationException("Cannot dequeue from an empty queue.");
+public T Dequeue()
+{
+  if (_first == null) throw new InvalidOperationException("Cannot dequeue from an empty queue.");
 
-    Element<T> removeElement = _first;
-    _first = _first.Next!;
+  Element<T> removeElement = _first;
+  _first = _first.Next!;
 
-    if (_first == null) _last = null;
+  if (_first == null) _last = null;
 
-    return removeElement.Data!;
-  }
+  return removeElement.Data!;
+}
 ```
 
 ```c#
-  public void Enqueue(T item)
+public void Enqueue(T item)
+{
+  if (item == null) throw new ArgumentNullException("Cannot enqueue null to a queue.");
+
+  if (_first == null)
   {
-    if (item == null) throw new ArgumentNullException("Cannot enqueue null to a queue.");
-
-    if (_first == null)
-    {
-      _first = new Element<T>(item , null);
-      _last = _first;
-    }
-    else
-    {
-      Element<T> newElement = new(item , null);
-      _last!.Next = newElement;
-      _last = newElement;
-    }
+    _first = new Element<T>(item , null);
+    _last = _first;
   }
+  else
+  {
+    Element<T> newElement = new(item , null);
+    _last!.Next = newElement;
+    _last = newElement;
+  }
+}
 ```
-
 <!-- ![Screenshot 2024-09-25 002316](https://github.com/user-attachments/assets/93e312ec-7a29-42df-88e9-a4c11fc4c7ff) -->
 
 ---  
+
 # - Stack:  <sub><sup> (*passed Unit-Tests:* ***20/20***) </sup></sub>
+
 > FIELDS:
 ```c#
-  private Element<T>? _head = null;
+private Element<T>? _head = null;
 ```
 
 > PROPERTIES:
@@ -101,43 +102,107 @@ public int Count
 
 > METHODS:
 ```c#
-  public void Clear() => _head = null;
+public void Clear() => _head = null;
 ```
 
 ```c#
-  public T Peek()
-  {
-    if (IsEmpty) throw new InvalidOperationException("Cannot peek an empty stack.");
-    return _head!.Data!;
-  }
+public T Peek()
+{
+  if (IsEmpty) throw new InvalidOperationException("Cannot peek an empty stack.");
+  return _head!.Data!;
+}
 ```
 
 ```c#
+public T Pop()
+{
+  if (IsEmpty) throw new InvalidOperationException("Cannot pop from an empty stack.");
 
-  public T Pop()
-  {
-    if (IsEmpty) throw new InvalidOperationException("Cannot pop from an empty stack.");
-
-    T item = _head!.Data!;
-    _head = _head.Next;
-    return item;
-  }
+  T item = _head!.Data!;
+  _head = _head.Next;
+  return item;
+}
 ```
 
 ```c#
-
-  public void Push(T? item)
-  {
-    var newElement = new Element<T>(item , _head);
-    _head = newElement;
-  }
+public void Push(T? item)
+{
+  var newElement = new Element<T>(item , _head);
+  _head = newElement;
+}
 ```
-
 <!-- ![Screenshot 2024-09-25 002015](https://github.com/user-attachments/assets/c1481045-7405-4510-a30e-2f059b5d8d8f) -->  
 
 ---  
 
-### UniversalQueue:  18/20
+# UniversalQueue:  <sub><sup> (*passed Unit-Tests:* ***18/20***) </sup></sub>
+
+> FIELDS:
+```c#
+private readonly Queue<T> _queue;
+private readonly Stack<T> _stack;
+```
+
+> PROPERTIES:
+```c#
+public bool IsEmpty => _queue.Count == 0 && _stack.Count == 0;
+public int Count => _queue.Count + _stack.Count;
+```
+
+> METHODS:
+```c#
+public void Enqueue(T item) => _queue.Enqueue(item);
+```
+
+```c#
+public void Push(T item) => _stack.Push(item);
+```
+
+```c#
+public T Dequeue()
+{
+  if (IsEmpty) throw new InvalidOperationException("Cannot dequeue from an empty queue.");
+
+  if (_queue.Count > 0) return _queue.Dequeue();
+  else
+  {
+    while (_stack.Count > 0)
+      _queue.Enqueue(_stack.Pop());
+    return _queue.Dequeue();
+  }
+}
+```
+
+```c#
+public T Pop()
+{
+  if (IsEmpty) throw new InvalidOperationException("Cannot pop from an empty queue.");
+  return _stack.Pop();
+}
+```
+
+```c#
+public T Peek()
+{
+  if (IsEmpty) throw new InvalidOperationException("Cannot peek an empty queue.");
+
+  if (_stack.Count > 0) return _stack.Peek();
+  else
+  {
+    while (_queue.Count > 0)
+      _stack.Push(_queue.Dequeue());
+    return _stack.Peek();
+  }
+}
+```
+
+```c#
+public void Clear()
+{
+  _queue.Clear();
+  _stack.Clear();
+}
+```
 <!-- ![Screenshot 2024-09-25 004603](https://github.com/user-attachments/assets/adca91d0-5145-4184-98a8-bbb75a633b2d) -->
 
 
