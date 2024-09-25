@@ -1,17 +1,83 @@
 # PoseUebung-002 -- Linear Data Structures
 
 
-### Queue:  20/20
+# - Queue:  <sub><sup> (*passed Unit-Tests:* ***20/20***) </sup></sub>
+> FIELDS:
+```c#
+   private Element<T>? _first = null;
+   private Element<T>? _last = null;
+```
+
+> PROPERTIES:
+```c#
+public int Count
+{
+  get
+  {
+    int result = 0;
+    Element<T>? run = _first;
+    while (run != null)
+    {
+      result++;
+      run = run!.Next!;
+    }
+    return result;
+  }
+}
+```
+
+> METHODS:
+```c#
+  public void Clear()
+  {
+    _first = null;
+    _last = null;
+  }
+```
+
+```c#
+  public T Dequeue()
+  {
+    if (_first == null) throw new InvalidOperationException("Cannot dequeue from an empty queue.");
+
+    Element<T> removeElement = _first;
+    _first = _first.Next!;
+
+    if (_first == null) _last = null;
+
+    return removeElement.Data!;
+  }
+```
+
+```c#
+  public void Enqueue(T item)
+  {
+    if (item == null) throw new ArgumentNullException("Cannot enqueue null to a queue.");
+
+    if (_first == null)
+    {
+      _first = new Element<T>(item , null);
+      _last = _first;
+    }
+    else
+    {
+      Element<T> newElement = new(item , null);
+      _last!.Next = newElement;
+      _last = newElement;
+    }
+  }
+```
+
 <!-- ![Screenshot 2024-09-25 002316](https://github.com/user-attachments/assets/93e312ec-7a29-42df-88e9-a4c11fc4c7ff) -->
 
 ---  
-# A) Stack:  <sub> passed Unit-Tests: 20/20 </sub>
-> - FIELDS:
+# - Stack:  <sub><sup> (*passed Unit-Tests:* ***20/20***) </sup></sub>
+> FIELDS:
 ```c#
   private Element<T>? _head = null;
 ```
 
-> - PROPERTIES:
+> PROPERTIES:
 ```c#
 public bool IsEmpty => Count == 0;
 public int Count
@@ -33,7 +99,7 @@ public int Count
 }
 ```
 
-> - METHODS:
+> METHODS:
 ```c#
   public void Clear() => _head = null;
 ```
