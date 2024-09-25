@@ -144,6 +144,15 @@ private readonly Queue<T> _queue;
 private readonly Stack<T> _stack;
 ```
 
+> CONSTRUCTOR:
+```c#
+public UniversalQueue()
+{
+  _queue = new Queue<T>();
+  _stack = new Stack<T>();
+}
+```
+
 > PROPERTIES:
 ```c#
 public bool IsEmpty => _queue.Count == 0 && _stack.Count == 0;
