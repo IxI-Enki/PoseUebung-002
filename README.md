@@ -36,12 +36,17 @@ public int Count
 > - METHODS:
 ```c#
   public void Clear() => _head = null;
+```
 
+```c#
   public T Peek()
   {
     if (IsEmpty) throw new InvalidOperationException("Cannot peek an empty stack.");
     return _head!.Data!;
   }
+```
+
+```c#
 
   public T Pop()
   {
@@ -51,6 +56,9 @@ public int Count
     _head = _head.Next;
     return item;
   }
+```
+
+```c#
 
   public void Push(T? item)
   {
