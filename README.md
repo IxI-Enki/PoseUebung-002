@@ -213,6 +213,8 @@ public void Clear()
   _stack.Clear();
 }
 ```
-<!-- ![Screenshot 2024-09-25 004603](https://github.com/user-attachments/assets/adca91d0-5145-4184-98a8-bbb75a633b2d) -->
+
+![Screenshot 2024-09-25 004603](https://github.com/user-attachments/assets/adca91d0-5145-4184-98a8-bbb75a633b2d)  
+
 
 
